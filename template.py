@@ -15,6 +15,7 @@ list_of_files = [
     f"src/{project_name}/pipeline/__init__.py",
     f"src/{project_name}/entity/__init__.py",
     f"src/{project_name}/constants/__init__.py",
+    f"src/{project_name}/logging/__init__.py",
     "config/config.yaml",
     "params.yaml",
     "requirements.txt",
@@ -28,13 +29,13 @@ for filepath in list_of_files :
 
     if filedir != "" and (not os.path.exists(filedir)):
         os.makedirs(filedir, exist_ok=True)
-        logging.info("Created directory at {filedir} for {filename}")
+        logging.info(f"Created directory at {filedir} for {filename}")
     
-    if (not os.path.exists(OSPath)) or (os.path.getsize(OSPath)):
-        with open(OSPath, 'w') as f:
-            pass
-            logging.info(f"Created file at {OSPath}")
-    else:
+    if (os.path.exists(OSPath)) :
         logging.info(f"File already exists at {OSPath}. Skipping creation.")
+    else:
+        with open(OSPath, 'w') as file:
+            file.write("#this file was created by the template.py script")
+            logging.info(f"Created file at {OSPath}")
 
         
