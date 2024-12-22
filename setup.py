@@ -5,9 +5,9 @@ with open("README.md", "r" , encoding="utf-8") as fh:
     
 __version__ = "0.0.0"
 
-REPO_NAME = "Cats-VS-Dogs"
+REPO_NAME = "CatsVsDogs"
 AUTHOR_USER_NAME = "codewithabdou"
-SRC_REPO = "Cats-VS-Dogs"
+SRC_REPO = "CatsVsDogs"
 AUTHOR_EMAIL = "kk_habouche@esi.dz"
 
 setuptools.setup(
