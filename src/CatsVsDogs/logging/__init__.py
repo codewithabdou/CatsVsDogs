@@ -1,14 +1,11 @@
 import os
 import sys
 import logging
-from pathlib import Path
-
-# Get project root directory
-PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
+from CatsVsDogs.constants import ROOT_DIR
 
 # Set up logging configuration
 logging_str = "[%(asctime)s : %(levelname)s : %(module)s : %(message)s]"
-log_dir = os.path.join(PROJECT_ROOT, "logs")
+log_dir = os.path.join(ROOT_DIR, "logs")
 os.makedirs(log_dir, exist_ok=True)
 
 # Create separate log files for all levels with absolute paths

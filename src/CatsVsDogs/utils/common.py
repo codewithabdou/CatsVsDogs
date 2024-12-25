@@ -10,6 +10,7 @@ from box.exceptions import BoxValueError
 from ensure import ensure_annotations
 from CatsVsDogs.logging import logger
 import binascii
+import requests
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -48,7 +49,7 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
         raise
 
 @ensure_annotations
-def create_directories(path_to_directories: List[Path], verbose: bool = True) -> None:
+def create_directories(path_to_directories: List, verbose: bool = True):
     """Create multiple directories if they don't exist.
 
     Args:
@@ -69,7 +70,7 @@ def create_directories(path_to_directories: List[Path], verbose: bool = True) ->
             raise
 
 @ensure_annotations
-def save_json(path: Path, data: dict) -> None:
+def save_json(path: Path, data: dict):
     """Save data to a JSON file.
 
     Args:
@@ -120,7 +121,7 @@ def load_json(path: Path) -> ConfigBox:
         raise
 
 @ensure_annotations
-def save_bin(data: Any, path: Path) -> None:
+def save_bin(data: Any, path: Path):
     """Save data to a binary file using joblib.
 
     Args:
@@ -182,7 +183,7 @@ def get_size(path: Path) -> str:
         logger.critical(f"Error calculating file size: {e}")
         raise
 
-def decode_image(imgstring: str, filename: str) -> None:
+def decode_image(imgstring: str, filename: str):
     """Decode base64 string and save as image.
 
     Args:
@@ -224,4 +225,35 @@ def encode_image_to_base64(image_path: str) -> bytes:
         raise
     except Exception as e:
         logger.critical(f"Failed to encode image: {e}")
+        raise
+    
+    
+    
+
+def download_file(url: str, dest_path: str):
+    """
+    Download a file from a URL to a destination path.
+    
+    Args:
+        url: Source URL
+        dest_path: Destination file path
+    """
+    try:
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+        
+        dest = Path(dest_path)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        
+        file_size = int(response.headers.get('content-length', 0))
+        
+        with open(dest_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+                    
+        logger.info(f"Downloaded {file_size/1024/1024:.1f}MB to {dest_path}")
+            
+    except requests.exceptions.RequestException as e:
+        logger.critical(f"Download failed: {str(e)}")
         raise
