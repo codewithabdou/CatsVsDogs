@@ -1,0 +1,1 @@
+from CatsVsDogs.entity.config import *
