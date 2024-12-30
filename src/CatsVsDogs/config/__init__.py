@@ -1,10 +1,10 @@
 from CatsVsDogs.utils import read_yaml, create_directories
 from CatsVsDogs.constants import CONFIG_FILE_PATH , PARAMS_FILE_PATH
 
-from CatsVsDogs.entity import DataIngestionConfig
-from CatsVsDogs.entity import PrepareBaseModelConfig
+from CatsVsDogs.entity import DataIngestionConfig , PrepareBaseModelConfig , CallbacksPreparationConfig
 
 from pathlib import Path
+import os
 
 class ConfigurationManager:
     def __init__(
@@ -41,6 +41,20 @@ class ConfigurationManager:
             params_include_top=self.params.INCLUDE_TOP,
             params_weights=self.params.WEIGHTS,
             params_classes=self.params.CLASSES
+        )
+        
+    def get_prepare_callback_config(self) -> CallbacksPreparationConfig:
+        config = self.config.prepare_callbacks
+        model_ckpt_dir = os.path.dirname(config.checkpoint_model_filepath)
+        create_directories([
+            Path(model_ckpt_dir),
+            Path(config.tensorboard_root_log_dir)
+        ])
+
+        return CallbacksPreparationConfig(
+            root_dir=Path(config.root_dir),
+            tensorboard_root_log_dir=Path(config.tensorboard_root_log_dir),
+            checkpoint_model_filepath=Path(config.checkpoint_model_filepath)
         )
     
 
