@@ -1,4 +1,4 @@
-from CatsVsDogs.pipeline import BaseModelPreparationPipeline , DataIngestionTrainingPipeline , TrainingPipeline
+from CatsVsDogs.pipeline import BaseModelPreparationPipeline , DataIngestionTrainingPipeline , TrainingPipeline , EvaluationPipeline
 
 
 from CatsVsDogs.logging import logger
@@ -30,6 +30,16 @@ try:
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
    training_pipeline = TrainingPipeline()
    training_pipeline.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+        logger.critical(f"stage {STAGE_NAME} failed")
+        raise e
+     
+STAGE_NAME = "Evaluation stage"
+try:
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   evaluation = EvaluationPipeline()
+   evaluation.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 except Exception as e:
         logger.critical(f"stage {STAGE_NAME} failed")

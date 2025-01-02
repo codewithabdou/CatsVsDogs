@@ -1,1 +1,1 @@
-from CatsVsDogs.entity.config import DataIngestionConfig,CallbacksPreparationConfig,PrepareBaseModelConfig,TrainingConfig
+from CatsVsDogs.entity.config import DataIngestionConfig,CallbacksPreparationConfig,PrepareBaseModelConfig,TrainingConfig , EvaluationConfig

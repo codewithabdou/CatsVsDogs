@@ -1,7 +1,7 @@
 from CatsVsDogs.utils import read_yaml, create_directories
 from CatsVsDogs.constants import CONFIG_FILE_PATH , PARAMS_FILE_PATH
 
-from CatsVsDogs.entity import DataIngestionConfig , PrepareBaseModelConfig , CallbacksPreparationConfig , TrainingConfig
+from CatsVsDogs.entity import DataIngestionConfig , PrepareBaseModelConfig , CallbacksPreparationConfig , TrainingConfig , EvaluationConfig
 
 from pathlib import Path
 import os
@@ -75,6 +75,15 @@ class ConfigurationManager:
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,
             params_image_size=params.IMAGE_SIZE
+        )
+        
+    def get_validation_config(self) -> EvaluationConfig:
+        return EvaluationConfig(
+            path_of_model="artifacts/training/model.keras",
+            training_data="artifacts/data_ingestion/PetImages",
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
         )
     
 

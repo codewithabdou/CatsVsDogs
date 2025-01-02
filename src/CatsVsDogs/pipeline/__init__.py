@@ -1,3 +1,4 @@
 from CatsVsDogs.pipeline.stage_02_base_model_prepration import BaseModelPreparationPipeline
 from CatsVsDogs.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
 from CatsVsDogs.pipeline.stage_03_training import TrainingPipeline
+from CatsVsDogs.pipeline.stage_04_model_evaluation import EvaluationPipeline
