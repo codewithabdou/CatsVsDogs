@@ -1,3 +1,4 @@
 from CatsVsDogs.components.data_ingestion import DataIngestion
 from CatsVsDogs.components.base_model_preparation import PrepareBaseModel
 from CatsVsDogs.components.callbacks_preparation import PrepareCallback
+from CatsVsDogs.components.training import Training
